@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Angular and Firebase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body ng-app="expenseTrakerApp">
+    <root></root>
+    <!-- dependencies -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-component-router/angular_1_router.js"></script>
+    <script src="bower_components/firebase/firebase.js"></script>
+    <script src="src/firebase/config.js"></script>
+    <script src="bower_components/angularfire/dist/angularfire.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/materialize/dist/js/materialize.js"></script>
+    <script type="text/javascript">
+      $(document).ready(()=>{
+        $(".button-collapse").sideNav();
+      })
+    </script>
+    <!-- scripts -->
+    <script src="src/app.js"></script>
+    <script src="src/firebase/firebaseUrl.js"></script>
+    <script src="src/firebase/auth.js"></script>
+    <script src="src/components/Root.js"></script>
+    <script src="src/components/Nav.js"></script>
+    <script src="src/components/Home.js"></script>
+    <script src="src/components/Login.js"></script>
+  </body>
+</html>

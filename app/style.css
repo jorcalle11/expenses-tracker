@@ -1,0 +1,66 @@
+body {
+  background: #E8E9EB;
+}
+
+.wrapperForm {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  background: #f9f9f9;
+  margin-top: 1.5em;
+  padding: 5px;
+}
+
+.btn-groups{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.btn-groups button {
+  margin:8px;
+}
+
+.separator {
+  position: relative;
+  height: 34px;
+  text-align: center;
+  background: none;
+}
+
+.separator .text {
+  display: inline-block;
+  padding: 8px;
+  margin: 0;
+  background-color: #f9f9f9;
+}
+
+.separator hr {
+  width: 90%;
+  margin: -16px auto 10px auto;
+  border-top: 1px solid #dce0e0;
+}
+
+.btn-twiter {
+  background: #1DA1F2;
+}
+
+.btn-twiter:hover {
+  background: #1a94df;
+}
+
+.btn-facebook {
+  background: #3B5998;
+}
+
+.btn-facebook:hover {
+  background: #314a7e;
+}
+
+
+.btn-github {
+  background: #333333;
+}
+
+.btn-github:hover {
+  background: #242323;
+}
