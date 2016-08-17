@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "post-install":"bower install",
+    "postinstall":"bower install",
     "start": "node_modules/http-server/bin/http-server app -p 3000"
   },
   "keywords": [
