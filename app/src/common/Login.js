@@ -72,7 +72,7 @@
               </button>
             </div>
             <p class="center" style="font-size: .8em; color:rgb(149, 152, 150)">
-              ¿Aún no tienes cuenta? <a ng-link="['Security']">Crear cuenta</a>
+              ¿Aún no tienes cuenta? <a ng-link="['SignUp']">Crear cuenta</a>
             </p>
           </section>
         </section>
@@ -80,9 +80,12 @@
     `
   }
 
-  function canActivate(Auth) {
+  function canActivate(Auth, $rootRouter) {
     return Auth.$requireSignIn()
-      .then(() => false)
+      .then(() => {
+        $rootRouter.navigate(['Main']);
+        return false;
+      })
       .catch(() => true);
   }
 
@@ -95,10 +98,7 @@
 
     function loginAnonymously() {
       Auth.$signInAnonymously()
-        .then(() => {
-          vm.$router.navigate(['Security']);
-          vm.parent.stateAuth();
-        })
+        .then(() => vm.parent.stateAuth())
         .catch((err) => console.log(err))
     }
 
@@ -106,7 +106,6 @@
       Auth.$signInWithEmailAndPassword(vm.credentials.email,vm.credentials.password)
         .then(() => {
           vm.parent.stateAuth();
-          vm.$router.navigate(['Main']);
           vm.credentials = {};
         })
         .catch((err) => console.log(err))
@@ -114,10 +113,7 @@
 
     function loginProvider(provider) {
       Auth.$signInWithPopup(provider)
-        .then(() => {
-          vm.$router.navigate(['Main']);
-          vm.parent.stateAuth();
-        })
+        .then(() => vm.parent.stateAuth())
         .catch((err) => console.log(err));
     }
 

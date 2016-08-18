@@ -8,10 +8,10 @@
       controller: ['Auth','$rootRouter',controller],
       $routeConfig: [
         {path: '/', component: 'home', name: 'Main'},
+        {path:'/signup', component: 'signUp', name: 'SignUp'},
         {path: '/login', component: 'login', name: 'Login'},
         {path: '/logout', component: 'logout', name: 'Logout'},
-        {path: '/security', component: 'security', name: 'Security'},
-        {path: '/**', redirectTo: ['Main']}
+        {path: '/**', redirectTo: ['Login']}
       ]
     })
 
@@ -37,6 +37,7 @@
         if (user) {
           vm.currentUser = user;
           vm.loggedIn = true;
+          $rootRouter.navigate(['Main']);
         } else {
           vm.currentUser = {};
           vm.loggedIn = false;

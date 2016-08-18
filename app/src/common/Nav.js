@@ -29,9 +29,15 @@
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="fa fa-bars" style="margin-left:5px"></i></a>
         <ul class="right hide-on-med-and-down">
           <li ng-show="$ctrl.loggedIn">
-            <a ng-link="['Security']">
+            <a ng-link="['Main']">
               <i class="fa fa-lock left"></i>
-              Segura
+              Principal
+            </a>
+          </li>
+          <li ng-show="!$ctrl.loggedIn">
+            <a ng-link="['SignUp']">
+              <i class="fa fa-user-plus left"></i>
+              Registrate
             </a>
           </li>
           <li ng-show="!$ctrl.loggedIn">
@@ -43,8 +49,10 @@
           <li ng-show="$ctrl.loggedIn"><dropdown-user current-user="$ctrl.currentUser"></dropdown-user></li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
-          <li><a ng-link="['Security']">Segura</a></li>
-          <li><a ng-link="['Login']">Iniciar Sesión</a></li>
+          <li ng-show="$ctrl.loggedIn"><a ng-link="['Main']">Principal</a></li>
+          <li ng-show="$ctrl.loggedIn"><a ng-click="$ctrl.logout()">Cerrar Sesión</a></li>
+          <li ng-show="!$ctrl.loggedIn"><a ng-link="['SignUp']">Registrate</a></li>
+          <li ng-show="!$ctrl.loggedIn"><a ng-link="['Login']">Iniciar Sesión</a></li>
         </ul>
       </div>
     </nav>

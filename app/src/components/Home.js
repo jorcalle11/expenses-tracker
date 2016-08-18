@@ -22,14 +22,11 @@
 
   function canActivate(Auth,$rootRouter){
     return Auth.$requireSignIn()
-      .catch((user) => {
-        if(user) {
-          return true;
-        } else {
-          $rootRouter.navigate(['Login']);
-          return false;
-        }
-      })
+      .then(() => true)
+      .catch(() => {
+        $rootRouter.navigate(['Login']);
+        return false;
+      });
   }
 
   function controller(Auth){
