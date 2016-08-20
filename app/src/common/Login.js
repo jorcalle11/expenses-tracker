@@ -4,22 +4,9 @@
   angular
     .module('expenseTrakerApp')
     .component('login',{
-      require : {
-        parent: '^root'
-      },
       template: template(),
       $canActivate: canActivate,
-      controller: ['Auth',controller],
-      bindings: {
-        '$router': '<'
-      }
-    })
-    .component('logout',{
-      template: null,
-      controller: () => {
-        var vm = this;
-        vm.$router.navigate(['Login'])
-      },
+      controller: ['Auth','toastr',controller],
       bindings: {
         '$router': '<'
       }
@@ -89,7 +76,7 @@
       .catch(() => true);
   }
 
-  function controller(Auth) {
+  function controller(Auth,toastr) {
     var vm = this;
     vm.credentials = {};
     vm.login = loginWithEmailAndPassword;
@@ -98,23 +85,23 @@
 
     function loginAnonymously() {
       Auth.$signInAnonymously()
-        .then(() => vm.parent.stateAuth())
-        .catch((err) => console.log(err))
+        .then(() => toastr.success('Iniciaste Sesión de forma Anónima','Login'))
+        .catch((err) => toastr.error('Algo salió mal :(','Error'));
     }
 
     function loginWithEmailAndPassword() {
       Auth.$signInWithEmailAndPassword(vm.credentials.email,vm.credentials.password)
         .then(() => {
-          vm.parent.stateAuth();
           vm.credentials = {};
+          toastr.success('Iniciaste sesion exitosamente!','Login');
         })
-        .catch((err) => console.log(err))
+        .catch((err) => toastr.error('Email o Contraseña incorrecta','Error'))
     }
 
     function loginProvider(provider) {
       Auth.$signInWithPopup(provider)
-        .then(() => vm.parent.stateAuth())
-        .catch((err) => console.log(err));
+        .then(() => toastr.success(`Iniciaste sesion con ${provider}`,'Login'))
+        .catch((err) => toastr.error('Error',err.message));
     }
 
   }

@@ -5,7 +5,8 @@
     .module('expenseTrakerApp',[
       'ngComponentRouter',
       'firebase',
-      'ngStorage'
+      'ngAnimate',
+      'toastr'
     ])
     .value('$routerRootComponent','root')
 }());

@@ -8,10 +8,9 @@
       controller: ['Auth','$rootRouter',controller],
       $routeConfig: [
         {path: '/', component: 'home', name: 'Main'},
-        {path: '/preferencies', component: 'editUserPref', name: 'Preferencies'},        
+        {path: '/preferencies', component: 'editUserPref', name: 'Preferencies'},
         {path:'/signup', component: 'signUp', name: 'SignUp'},
         {path: '/login', component: 'login', name: 'Login'},
-        {path: '/logout', component: 'logout', name: 'Logout'},
         {path: '/**', redirectTo: ['Login']}
       ]
     })
@@ -29,12 +28,11 @@
     var vm = this;
     vm.currentUser = {};
     vm.loggedIn = false;
-    vm.stateAuth = stateAuth;
 
     stateAuth();
 
     function stateAuth() {
-      return Auth.$onAuthStateChanged((user) => {
+      Auth.$onAuthStateChanged((user) => {
         if (user) {
           vm.currentUser = user;
           vm.loggedIn = true;

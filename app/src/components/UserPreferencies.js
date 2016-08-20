@@ -5,7 +5,7 @@
     .component('editUserPref',{
       template: template(),
       $canActivate: canActivate,
-      controller: ['$firebaseObject','FirebaseRef',controller],
+      controller: ['$firebaseObject','FirebaseRef','$rootScope', 'toastr',controller],
       bindings: {
         $router: '<'
       }
@@ -54,18 +54,21 @@
         });
     }
 
-    function controller($firebaseObject,FirebaseRef) {
+    function controller($firebaseObject,FirebaseRef,$rootScope, toastr) {
       var vm = this;
       vm.userPreferencies = $firebaseObject(FirebaseRef.getPreferencies());
       vm.themes = ['red darken-3','pink darken-3','blue darken-3','lime darken-3','green darken-3'];
       vm.save = save;
       vm.cancel = cancel;
 
+      $rootScope.$on('logout', () => {
+        toastr.warning('Vuelve pronto!','Logout');
+        vm.userPreferencies.$destroy();
+      });
 
       function save() {
-        console.log(vm.userPreferencies);
         vm.userPreferencies.$save();
-        vm.$router.navigate(['Main']);
+        toastr.info('Has editado tu información','Preferencias');
       }
 
       function cancel() {

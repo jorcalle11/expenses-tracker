@@ -4,11 +4,8 @@
   angular
     .module('expenseTrakerApp')
     .component('navbar',{
-      require: {
-        parent: '^root'
-      },
       template: template(),
-      controller: ['Auth','$firebaseObject','FirebaseRef',controller],
+      controller: ['Auth','$firebaseObject','FirebaseRef','$rootScope',controller],
       bindings: {
         currentUser: '<',
         loggedIn: '<'
@@ -23,9 +20,9 @@
       <li class="divider"></li>
       <li><a ng-click="$ctrl.logout()">Cerrar Sesión</a></li>
     </ul>
-    <nav ng-show="$ctrl.loaded" class="{{($ctrl.preferencies.theme) ? $ctrl.preferencies.theme : 'blue darken-3'}}">
+    <nav class="{{$ctrl.theme}}">
       <div class="nav-wrapper">
-        <a ng-link="['Login']" class="brand-logo">Expenses</a>
+        <a ng-link="['Login']" class="brand-logo">{{$ctrl.preferencies.displayName || 'Expenses'}}</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="fa fa-bars" style="margin-left:5px"></i></a>
         <ul class="right hide-on-med-and-down">
           <li ng-show="$ctrl.loggedIn">
@@ -65,21 +62,39 @@
     `
   }
 
-  function controller(Auth,$firebaseObject,FirebaseRef) {
+  function controller(Auth,$firebaseObject,FirebaseRef,$rootScope) {
     var vm = this;
+    var nav = $('#nav');
+    vm.theme = 'blue darken-3';
     vm.logout = logout;
-    vm.loaded = true;
-
-    Auth.$requireSignIn().then(() => {
-      vm.preferencies = $firebaseObject(FirebaseRef.getPreferencies());
-      vm.loaded = true;
-      console.log(vm.preferencies);
-    });
+    vm.$onChanges = $onChanges;
 
     function logout() {
       Auth.$signOut();
-      vm.parent.stateAuth();
+      vm.preferencies.$destroy();
+      $rootScope.$broadcast('logout');
     }
+
+    function $onChanges(data) {
+      if (vm.loggedIn) {
+        loadPreferencies();
+      } else {
+        vm.theme = 'blue darken-3';
+      }
+    }
+
+    function loadPreferencies() {
+      vm.preferencies  = $firebaseObject(FirebaseRef.getPreferencies());
+      vm.preferencies.$loaded()
+        .then(() => {
+          vm.theme = vm.preferencies.theme;
+        });
+
+      vm.preferencies.$watch(()=> {
+        vm.theme = vm.preferencies.theme;
+      });
+    }
+
 
   }
 }());
