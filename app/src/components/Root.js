@@ -8,6 +8,7 @@
       controller: ['Auth','$rootRouter',controller],
       $routeConfig: [
         {path: '/', component: 'home', name: 'Main'},
+        {path: '/preferencies', component: 'editUserPref', name: 'Preferencies'},        
         {path:'/signup', component: 'signUp', name: 'SignUp'},
         {path: '/login', component: 'login', name: 'Login'},
         {path: '/logout', component: 'logout', name: 'Logout'},

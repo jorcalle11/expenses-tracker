@@ -6,10 +6,7 @@
     .component('home',{
       template: template(),
       $canActivate: canActivate,
-      controller: ['Auth',controller],
-      bindings: {
-        '$router': '<'
-      }
+      controller: ['Auth',controller]
     })
 
   function template() {

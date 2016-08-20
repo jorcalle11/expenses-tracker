@@ -8,7 +8,7 @@
         parent: '^root'
       },
       template: template(),
-      controller: ['Auth',controller],
+      controller: ['Auth','$firebaseObject','FirebaseRef',controller],
       bindings: {
         currentUser: '<',
         loggedIn: '<'
@@ -23,7 +23,7 @@
       <li class="divider"></li>
       <li><a ng-click="$ctrl.logout()">Cerrar Sesión</a></li>
     </ul>
-    <nav class="blue darken-3">
+    <nav ng-show="$ctrl.loaded" class="{{($ctrl.preferencies.theme) ? $ctrl.preferencies.theme : 'blue darken-3'}}">
       <div class="nav-wrapper">
         <a ng-link="['Login']" class="brand-logo">Expenses</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="fa fa-bars" style="margin-left:5px"></i></a>
@@ -32,6 +32,12 @@
             <a ng-link="['Main']">
               <i class="fa fa-lock left"></i>
               Principal
+            </a>
+          </li>
+          <li ng-show="$ctrl.loggedIn">
+            <a ng-link="['Preferencies']">
+              <i class="fa fa-wrench left"></i>
+              Editar preferencias
             </a>
           </li>
           <li ng-show="!$ctrl.loggedIn">
@@ -59,9 +65,16 @@
     `
   }
 
-  function controller(Auth) {
+  function controller(Auth,$firebaseObject,FirebaseRef) {
     var vm = this;
     vm.logout = logout;
+    vm.loaded = true;
+
+    Auth.$requireSignIn().then(() => {
+      vm.preferencies = $firebaseObject(FirebaseRef.getPreferencies());
+      vm.loaded = true;
+      console.log(vm.preferencies);
+    });
 
     function logout() {
       Auth.$signOut();
