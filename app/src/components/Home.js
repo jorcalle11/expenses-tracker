@@ -6,14 +6,29 @@
     .component('home',{
       template: template(),
       $canActivate: canActivate,
-      controller: ['Auth',controller]
-    })
+      controller: ['Auth','FirebaseRef','ExpensesListService','$rootScope',controller]
+    });
 
   function template() {
     return `
-      <h3>Yo soy la ruta principal!!!</h3>
-      <button ng-click="$ctrl.currentUser()">actual</button>
-      <button ng-click="$ctrl.logout()">cerrar session</button>
+      <h3 class="center">Gastos</h3>
+      <alert ng-show="!$ctrl.load" message="Cargando datos, espere..."></alert>
+      <div ng-show="$ctrl.load" class="right-align">
+        <p>Total gastos: <span class="total-amount">{{$ctrl.expensesInOrder.getTotal() | currency}}</span></p>
+      </div>
+      <expenses-list
+        load="$ctrl.load"
+        data="$ctrl.expensesInOrder"
+        selected-expense="$ctrl.selectedExpense(expense)"
+        >
+      </expenses-list>
+      <form-expense
+        ng-show="$ctrl.load"
+        edited-expense="$ctrl.editExpense"
+        update-expense="$ctrl.updateExpense()"
+        create-new-expense="$ctrl.createExpense(expenseData)"
+        >
+      </form-expense>
     `
   }
 
@@ -26,18 +41,36 @@
       });
   }
 
-  function controller(Auth){
+  function controller(Auth,FirebaseRef, ExpensesListService,$rootScope){
     var vm = this;
+    vm.load = false;
+    vm.createExpense = createExpense;
+    vm.updateExpense = updateExpense;
+    vm.selectedExpense = selectedExpense;
+    vm.editExpense = {};
 
-    vm.currentUser = currentUser;
-    vm.logout = logout;
+    $rootScope.$on('logout', () => {
+      vm.expensesInOrder.$destroy();
+    });
 
-    function currentUser() {
-      console.log(Auth.$getAuth());
+    var query = FirebaseRef.getExpenses().orderByChild('date');
+    ExpensesListService(query).$loaded()
+      .then((data) => {
+        vm.expensesInOrder = data;
+        console.log(data);
+        vm.load = true;
+      });
+
+    function createExpense(expense) {
+      vm.expensesInOrder.$add(expense);
     }
 
-    function logout() {
-      Auth.$signOut()
+    function selectedExpense(expense) {
+      vm.editExpense = expense;
+    }
+
+    function updateExpense() {
+      vm.expensesInOrder.$save(vm.editExpense);
     }
   }
 

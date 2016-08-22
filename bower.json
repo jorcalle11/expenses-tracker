@@ -24,7 +24,7 @@
     "firebase": "^3.2.1",
     "materialize": "^0.97.7",
     "angular-component-router": "^0.2.1",
-    "angular-toastr": "^2.0.0",
-    "angular-animate": "^1.5.8"
+    "angular-animate": "^1.5.8",
+    "angular-toastr": "^2.1.0"
   }
 }

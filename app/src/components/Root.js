@@ -9,6 +9,7 @@
       $routeConfig: [
         {path: '/', component: 'home', name: 'Main'},
         {path: '/preferencies', component: 'editUserPref', name: 'Preferencies'},
+        {path: '/categories', component: 'categoriesList', name: 'Categories'},        
         {path:'/signup', component: 'signUp', name: 'SignUp'},
         {path: '/login', component: 'login', name: 'Login'},
         {path: '/**', redirectTo: ['Login']}

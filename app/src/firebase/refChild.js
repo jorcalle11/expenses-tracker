@@ -9,11 +9,21 @@
 
     function FirebaseRef(rootRef,Auth) {
       return {
-        getPreferencies: getPreferencies
+        getPreferencies: getPreferencies,
+        getCategories: getCategories,
+        getExpenses: getExpenses
       }
 
       function getPreferencies() {
         return rootRef.child('preferencies').child(Auth.$getAuth().uid);
+      }
+
+      function getCategories() {
+        return rootRef.child('categories');
+      }
+
+      function getExpenses() {
+        return rootRef.child('expenses').child(Auth.$getAuth().uid);
       }
     }
 }());

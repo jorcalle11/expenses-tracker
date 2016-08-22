@@ -2,6 +2,10 @@ body {
   background: #E8E9EB;
 }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 .wrapperForm {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   background: #f9f9f9;
@@ -63,4 +67,28 @@ body {
 
 .btn-github:hover {
   background: #242323;
+}
+
+.alert {
+  background: rgba(244, 68, 68, 0.86);
+  color: #fff;
+  padding: 10px;
+  font-size: 1.4em;
+  font-weight: 700;
+}
+
+.total-amount {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+.iconOption {
+  cursor: pointer;
+  color: red;
+  transform: scale(1.8,1.8);
+}
+
+.margin-top {
+  margin-top: 1em;
 }

@@ -20,7 +20,7 @@
       <li class="divider"></li>
       <li><a ng-click="$ctrl.logout()">Cerrar Sesión</a></li>
     </ul>
-    <nav class="{{$ctrl.theme}}">
+    <nav class="{{$ctrl.theme}}" ng-cloak>
       <div class="nav-wrapper">
         <a ng-link="['Login']" class="brand-logo">{{$ctrl.preferencies.displayName || 'Expenses'}}</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="fa fa-bars" style="margin-left:5px"></i></a>
@@ -29,6 +29,12 @@
             <a ng-link="['Main']">
               <i class="fa fa-lock left"></i>
               Principal
+            </a>
+          </li>
+          <li ng-show="$ctrl.loggedIn">
+            <a ng-link="['Categories']">
+              <i class="fa fa-lock left"></i>
+              Categorias
             </a>
           </li>
           <li ng-show="$ctrl.loggedIn">
@@ -94,7 +100,6 @@
         vm.theme = vm.preferencies.theme;
       });
     }
-
 
   }
 }());
