@@ -15,8 +15,8 @@
   function template() {
     return `
     <ul id="dropdown1" class="dropdown-content">
-      <li><a href="#!">Perfil</a></li>
-      <li><a href="#!">Configuración</a></li>
+      <li><a ng-link="['User']">Perfil</a></li>
+      <li><a ng-link="['Preferencies']">Preferencias</a></li>
       <li class="divider"></li>
       <li><a ng-click="$ctrl.logout()">Cerrar Sesión</a></li>
     </ul>
@@ -35,12 +35,6 @@
             <a ng-link="['Categories']">
               <i class="fa fa-lock left"></i>
               Categorias
-            </a>
-          </li>
-          <li ng-show="$ctrl.loggedIn">
-            <a ng-link="['Preferencies']">
-              <i class="fa fa-wrench left"></i>
-              Editar preferencias
             </a>
           </li>
           <li ng-show="!$ctrl.loggedIn">

@@ -17,11 +17,11 @@
     return `
       <alert ng-show="!$ctrl.data.length && $ctrl.load" message="No hay gastos guardados, puedes comenzar por agregar uno"></alert>
       <div class="wrapperForm" ng-show="$ctrl.data.length">
-        <table class="bordered highlight centered">
+        <table class="bordered highlight responsive-table">
           <thead>
             <tr>
               <th data-field="date">Fecha</th>
-              <th data-field="payee">Payee</th>
+              <th data-field="payee">Beneficiario</th>
               <th data-field="description">Descripción</th>
               <th data-field="category">Categoría</th>
               <th data-field="amount">Valor</th>

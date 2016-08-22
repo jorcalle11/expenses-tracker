@@ -8,8 +8,9 @@
       controller: ['Auth','$rootRouter',controller],
       $routeConfig: [
         {path: '/', component: 'home', name: 'Main'},
+        {path: '/me', component: 'userInfo', name: 'User'},        
         {path: '/preferencies', component: 'editUserPref', name: 'Preferencies'},
-        {path: '/categories', component: 'categoriesList', name: 'Categories'},        
+        {path: '/categories', component: 'categoriesList', name: 'Categories'},
         {path:'/signup', component: 'signUp', name: 'SignUp'},
         {path: '/login', component: 'login', name: 'Login'},
         {path: '/**', redirectTo: ['Login']}

@@ -57,7 +57,6 @@
     ExpensesListService(query).$loaded()
       .then((data) => {
         vm.expensesInOrder = data;
-        console.log(data);
         vm.load = true;
       });
 
